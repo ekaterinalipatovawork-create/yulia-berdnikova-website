@@ -2,3 +2,25 @@
 @media(max-width:1050px){:root{--pad:32px}.nav-links{gap:14px}.hero{min-height:auto}.hero-main{grid-template-columns:1fr 1fr;gap:20px;min-height:760px}.hero h1{font-size:76px}.hero-art{transform:scale(.82);transform-origin:center}.section h2{font-size:62px}.request-grid{grid-template-columns:repeat(2,1fr)}.about-grid{gap:45px}.about-art{transform:scale(.86);transform-origin:left center}.service-card h3{font-size:50px}.approach-grid{grid-template-columns:380px 1fr}.mascot-stage{transform:scale(.8);transform-origin:left center}.principles{grid-template-columns:1fr}.principles article{min-height:auto}.process-grid{grid-template-columns:repeat(2,1fr);padding-right:250px}.office-gallery{grid-template-columns:1fr 1fr}.photo-main,.photo-tall{grid-row:span 1}.reviews-head{grid-template-columns:1fr 1fr}.rating{grid-column:2}.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){:root{--pad:20px}.section{padding:64px 0}.section h2{font-size:49px}.nav{height:72px;position:relative;z-index:20}.brand-mobile,.menu-button{display:block}.brand-mobile{font:300 26px "Cormorant Garamond",serif}.menu-button{width:42px;height:42px;border:1px solid var(--olive);border-radius:50%;background:transparent;position:relative}.menu-button span{position:absolute;left:11px;width:18px;height:1px;background:var(--graphite)}.menu-button span:first-child{top:16px}.menu-button span:last-child{top:23px}.nav>.button{display:none}.nav-links{display:none;position:absolute;left:0;right:0;top:64px;background:var(--cream);border:1px solid var(--sand);border-radius:18px;padding:24px;flex-direction:column}.nav-links.open{display:flex}.hero-main{display:block;min-height:0;padding-top:42px}.hero-copy{padding-bottom:20px}.hero h1{font-size:64px}.hero-art{height:610px;transform:scale(.72);transform-origin:top left;width:620px}.split-heading,.about-grid,.service-grid,.approach-grid,.education-grid,.faq-grid,.contact-grid,.reviews-head,.review-grid{grid-template-columns:1fr;gap:40px}.split-heading{margin-bottom:40px}.request-grid{grid-template-columns:1fr}.request-card{height:390px}.requests-note{align-items:flex-start;flex-direction:column;gap:20px}.about-art{height:620px;transform:scale(.75);transform-origin:top left;width:680px}.service-card{min-height:560px;padding:30px}.service-card h3{font-size:46px}.approach-grid{gap:0}.mascot-stage{height:520px;transform:scale(.72);transform-origin:top left}.principles{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr;padding:0 0 440px}.process-line{display:none}.process-mascot{right:50%;transform:translateX(50%);bottom:0}.education-grid{gap:50px}.reviews-head .rating{grid-column:auto}.review-main,.review-side{padding:28px}.review-main q{font-size:31px}.office-gallery{display:grid;grid-template-columns:1fr;grid-template-rows:none}.photo{height:260px}.faq-intro img{display:none}.contact{min-height:0}.contact h2{font-size:68px}.contact-art{height:600px;transform:scale(.76);transform-origin:top left;width:650px}.footer-grid{grid-template-columns:1fr;gap:40px}.footer-bottom{align-items:flex-start;flex-direction:column;gap:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.button,.photo img{transition:none}}
+
+/* Hero experience badge: matches the approved reference. */
+.experience{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  background:var(--cream);
+  border:1px solid var(--olive);
+  border-radius:50%;
+  z-index:5;
+}
+.experience strong{
+  margin:0;
+  font:300 32px/1 "Cormorant Garamond",serif;
+}
+.experience span{
+  margin:0;
+  font-size:14px;
+}
+.faq-intro{align-self:start}
