@@ -115,7 +115,7 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 @media(max-width:760px){.education-experience{font-size:29px;margin-top:-8px}.review-carousel{margin-top:38px}.review-carousel-controls{justify-content:space-between}.review-carousel-controls button{width:44px;height:44px}.review-slide{min-height:390px}.review-main.review-slide,.review-side.review-slide{padding:28px}.review-main.review-slide q{font-size:31px}}
 @media(prefers-reduced-motion:reduce){.review-viewport{scroll-behavior:auto}}
 
-/* Editorial hero using the existing Yulia palette. */
+/* Hero hierarchy: profession first, portrait second, name as a compact signature. */
 .hero{position:relative;min-height:900px;background:var(--cream);color:var(--graphite);overflow:hidden}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13px;background:var(--olive)}
 .hero .nav{position:relative;z-index:10;color:var(--graphite)}
@@ -123,18 +123,18 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 .hero .nav>.button{background:var(--olive);color:var(--cream)}
 .hero .nav>.button:hover{background:#393c2a}
 .hero-main{position:relative;display:block;min-height:812px;padding-top:0}
-.hero-copy{position:absolute;inset:66px 0 auto;z-index:1;width:100%;padding:0;color:var(--graphite);text-align:left;pointer-events:none}
-.hero-copy .eyebrow{position:absolute;left:4px;top:-24px;margin:0;color:var(--olive)}
-.hero h1{margin:0;font-size:clamp(112px,10.6vw,154px);line-height:.72;letter-spacing:-.045em}
-.hero h1 span{display:block;white-space:nowrap}
-.hero h1 span:first-child{padding-left:4%}
-.hero h1 span:last-child{margin-top:54px;padding-left:0}
-.hero-art{position:absolute;z-index:2;right:17%;bottom:0;width:min(620px,48vw);height:790px;margin:0;transform:none}
+.hero-copy{position:absolute;inset:52px 0 auto;z-index:1;width:100%;padding:0;color:var(--graphite);text-align:left;pointer-events:none}
+.hero h1{margin:0;font:800 clamp(106px,9.8vw,148px)/.78 Manrope,Arial,sans-serif;letter-spacing:-.065em}
+.hero h1 span{display:block;white-space:nowrap;animation:heroTypeIn .7s ease both}
+.hero h1 span:last-child{margin-top:12px}
+.hero-name{position:absolute;left:0;top:540px;z-index:4;margin:0;font:300 66px/.86 "Cormorant Garamond",serif;letter-spacing:-.03em;color:var(--graphite);animation:heroTypeIn .7s .16s ease both}
+.hero-name span{display:block}
+.hero-accent{position:absolute;z-index:0;right:9%;top:202px;width:520px;height:500px;border-radius:48% 52% 46% 54%;background:var(--olive)}
+.hero-art{position:absolute;z-index:3;right:9%;bottom:0;width:min(630px,49vw);height:770px;margin:0;transform:none}
 .hero-portrait{width:100%;height:100%;object-fit:contain;object-position:bottom center;animation:heroPortraitIn .9s cubic-bezier(.22,.61,.36,1) both}
-.hero-copy .eyebrow,.hero h1 span{animation:heroTypeIn .75s ease both}
-.hero h1 span:first-child{animation-delay:.08s}.hero h1 span:last-child{animation-delay:.16s}
+.hero h1 span:first-child{animation-delay:.04s}.hero h1 span:last-child{animation-delay:.12s}
 @keyframes heroPortraitIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes heroTypeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media(max-width:1050px){.hero{min-height:860px}.hero-main{min-height:772px}.hero-copy{inset:64px 0 auto}.hero h1{font-size:clamp(92px,12.6vw,128px)}.hero h1 span:last-child{margin-top:42px}.hero-art{right:2%;width:min(560px,58vw);height:720px;transform:none}}
-@media(max-width:760px){.hero{min-height:880px}.hero .nav{gap:10px}.hero .nav-links{color:var(--graphite)}.hero .nav-links a{color:var(--graphite)}.hero .nav>.button{display:inline-flex;min-height:42px;margin-left:auto;padding:10px 16px}.hero .menu-button{border-color:var(--olive)}.hero .menu-button span{background:var(--olive)}.hero-main{display:block;min-height:808px;padding-top:0}.hero-copy{position:relative;inset:auto;z-index:3;padding-top:38px}.hero-copy .eyebrow{position:static;margin:0 0 14px}.hero h1{font-size:clamp(61px,18vw,76px);line-height:.78;letter-spacing:-.04em}.hero h1 span:first-child{padding-left:0}.hero h1 span:last-child{margin-top:20px;padding-left:0}.hero-art{left:0;right:auto;bottom:0;width:100%;height:600px;transform:none}.hero-portrait{object-position:bottom center}}
-@media(prefers-reduced-motion:reduce){.hero-portrait,.hero-copy .eyebrow,.hero h1 span{animation:none}}
+@media(max-width:1050px){.hero{min-height:860px}.hero-main{min-height:772px}.hero-copy{inset:54px 0 auto}.hero h1{font-size:clamp(78px,10.7vw,108px)}.hero-name{top:460px;font-size:58px}.hero-accent{right:1%;top:190px;width:470px;height:460px}.hero-art{right:0;width:min(570px,62vw);height:710px;transform:none}}
+@media(max-width:760px){.hero{min-height:880px}.hero .nav{gap:10px}.hero .nav-links{color:var(--graphite)}.hero .nav-links a{color:var(--graphite)}.hero .nav>.button{display:inline-flex;min-height:42px;margin-left:auto;padding:10px 16px}.hero .menu-button{border-color:var(--olive)}.hero .menu-button span{background:var(--olive)}.hero-main{display:block;min-height:808px;padding-top:0}.hero-copy{position:relative;inset:auto;z-index:3;padding-top:34px}.hero h1{font-size:clamp(43px,12.4vw,51px);line-height:.82;letter-spacing:-.06em}.hero h1 span:last-child{margin-top:8px}.hero-name{left:0;top:144px;font-size:47px;line-height:.84}.hero-accent{right:-45px;top:280px;width:320px;height:370px}.hero-art{left:0;right:auto;bottom:0;width:100%;height:600px;transform:none}.hero-portrait{object-position:bottom center}}
+@media(prefers-reduced-motion:reduce){.hero-portrait,.hero h1 span,.hero-name{animation:none}}
