@@ -55,6 +55,8 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 /* Interactive education document viewer. */
 .education-interactive{display:grid;grid-template-columns:minmax(0,45fr) minmax(0,55fr);gap:56px;align-items:start}
 .education-content h2{margin-bottom:30px}
+.education-experience{margin:-10px 0 2px;font:300 34px/1.1 "Cormorant Garamond",serif;color:var(--olive)}
+.education-experience-note{margin:0 0 24px;font-size:12px;color:var(--taupe)}
 .education-intro{max-width:540px;margin:0 0 30px;font-size:17px}
 .education-options{border-top:1px solid var(--taupe)}
 .education-option{padding:22px 0;border-bottom:1px solid var(--taupe);transition:padding .2s ease}
@@ -96,3 +98,19 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 .document-modal-navigation span{font-size:12px;color:var(--sand)}
 @media(max-width:1050px){.education-interactive{grid-template-columns:1fr;gap:44px}.document-viewer{position:relative;top:auto}.document-preview{height:580px}}
 @media(max-width:760px){.education-interactive{gap:34px}.education-content h2{font-size:48px}.education-option{padding:18px 0}.education-option.active{padding-left:12px}.qualification-select strong,.experience-option strong{font-size:25px}.document-switches button{min-height:42px;padding:9px 16px}.document-viewer{padding:14px;border-radius:18px}.document-viewer-head{min-height:0;display:block;margin-bottom:14px}.document-viewer-head h3{font-size:29px}.viewer-expand{margin-top:14px}.document-preview{height:430px;padding:10px}.viewer-controls button{padding:8px 11px}.document-modal-panel{padding:12px}.document-modal-toolbar{align-items:flex-start}.document-modal-toolbar h2{font-size:22px}.document-zoom-controls{flex-wrap:wrap;justify-content:flex-end}.document-zoom-controls button{min-width:38px;height:38px}.document-modal-navigation{gap:10px}.document-modal-navigation button{padding:8px 10px}.document-pan-area{border-radius:12px}}
+
+/* Reviews carousel keeps every existing review readable and swipeable. */
+.review-carousel{margin-top:55px;outline:none}
+.review-carousel-controls{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-bottom:18px}
+.review-carousel-controls button{display:grid;place-items:center;width:48px;height:48px;padding:0;border:1px solid var(--sand);border-radius:50%;background:transparent;color:var(--cream);font-size:23px;cursor:pointer;transition:background .2s,color .2s}
+.review-carousel-controls button:hover{background:var(--cream);color:var(--graphite)}
+.review-carousel-controls button:focus-visible,.review-carousel:focus-visible{outline:2px solid var(--cream);outline-offset:4px}
+.review-carousel-controls span{min-width:52px;text-align:center;font-size:12px;color:var(--sand)}
+.review-viewport{overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.review-viewport::-webkit-scrollbar{display:none}
+.review-track{display:flex;align-items:stretch}
+.review-slide{flex:0 0 100%;min-width:0;min-height:360px;scroll-snap-align:start;scroll-snap-stop:always}
+.review-side.review-slide{display:flex;flex-direction:column;justify-content:center}
+.review-side.review-slide span{margin-top:30px}
+@media(max-width:760px){.education-experience{font-size:29px;margin-top:-8px}.review-carousel{margin-top:38px}.review-carousel-controls{justify-content:space-between}.review-carousel-controls button{width:44px;height:44px}.review-slide{min-height:390px}.review-main.review-slide,.review-side.review-slide{padding:28px}.review-main.review-slide q{font-size:31px}}
+@media(prefers-reduced-motion:reduce){.review-viewport{scroll-behavior:auto}}

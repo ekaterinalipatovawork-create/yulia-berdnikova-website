@@ -197,4 +197,69 @@ document.addEventListener('keydown', (event) => {
 
 updateDocument(0);
 
+const reviewCarousel = document.querySelector('.review-carousel');
+const reviewViewport = document.querySelector('#review-viewport');
+const reviewTrack = document.querySelector('#review-track');
+const reviewPosition = document.querySelector('#review-position');
+const originalReviews = reviewTrack ? [...reviewTrack.children] : [];
+let currentReview = 0;
+let reviewScrollTimer;
+
+if (reviewViewport && originalReviews.length) {
+  originalReviews.forEach((review, index) => review.setAttribute('aria-label', `Отзыв ${index + 1} из ${originalReviews.length}`));
+  const firstClone = originalReviews[0].cloneNode(true);
+  const lastClone = originalReviews[originalReviews.length - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  reviewTrack.prepend(lastClone);
+  reviewTrack.append(firstClone);
+
+  const reviewWidth = () => reviewViewport.clientWidth;
+  const updateReviewLabel = () => {
+    reviewPosition.textContent = `${currentReview + 1} из ${originalReviews.length}`;
+  };
+  const jumpToPhysicalReview = (physicalIndex) => {
+    reviewViewport.style.scrollBehavior = 'auto';
+    reviewViewport.scrollLeft = physicalIndex * reviewWidth();
+    requestAnimationFrame(() => { reviewViewport.style.scrollBehavior = ''; });
+  };
+  const moveReview = (direction) => {
+    let physicalIndex;
+    if (direction > 0) {
+      physicalIndex = currentReview === originalReviews.length - 1 ? originalReviews.length + 1 : currentReview + 2;
+      currentReview = (currentReview + 1) % originalReviews.length;
+    } else {
+      physicalIndex = currentReview === 0 ? 0 : currentReview;
+      currentReview = (currentReview - 1 + originalReviews.length) % originalReviews.length;
+    }
+    updateReviewLabel();
+    reviewViewport.scrollTo({ left: physicalIndex * reviewWidth(), behavior: 'smooth' });
+  };
+
+  requestAnimationFrame(() => jumpToPhysicalReview(1));
+  document.querySelector('#review-prev')?.addEventListener('click', () => moveReview(-1));
+  document.querySelector('#review-next')?.addEventListener('click', () => moveReview(1));
+  reviewCarousel.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); moveReview(-1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); moveReview(1); }
+  });
+  reviewViewport.addEventListener('scroll', () => {
+    clearTimeout(reviewScrollTimer);
+    reviewScrollTimer = setTimeout(() => {
+      const physicalIndex = Math.round(reviewViewport.scrollLeft / reviewWidth());
+      if (physicalIndex === 0) {
+        currentReview = originalReviews.length - 1;
+        jumpToPhysicalReview(originalReviews.length);
+      } else if (physicalIndex === originalReviews.length + 1) {
+        currentReview = 0;
+        jumpToPhysicalReview(1);
+      } else {
+        currentReview = Math.max(0, Math.min(originalReviews.length - 1, physicalIndex - 1));
+      }
+      updateReviewLabel();
+    }, 140);
+  }, { passive: true });
+  window.addEventListener('resize', () => jumpToPhysicalReview(currentReview + 1));
+}
+
 document.querySelector('#year').textContent = new Date().getFullYear();
