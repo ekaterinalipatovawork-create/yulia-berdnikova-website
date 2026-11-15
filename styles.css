@@ -115,24 +115,26 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 @media(max-width:760px){.education-experience{font-size:29px;margin-top:-8px}.review-carousel{margin-top:38px}.review-carousel-controls{justify-content:space-between}.review-carousel-controls button{width:44px;height:44px}.review-slide{min-height:390px}.review-main.review-slide,.review-side.review-slide{padding:28px}.review-main.review-slide q{font-size:31px}}
 @media(prefers-reduced-motion:reduce){.review-viewport{scroll-behavior:auto}}
 
-/* Hero-only redesign: premium central composition with Yulia as the focus. */
-.hero{min-height:100svh;background:radial-gradient(circle at 18% 24%,rgba(235,205,176,.25),transparent 34%),radial-gradient(circle at 83% 72%,rgba(49,30,23,.48),transparent 40%),linear-gradient(135deg,#b88e70 0%,#76503f 46%,#4a3028 100%);color:var(--cream)}
-.hero .nav{position:relative;z-index:10;color:var(--cream)}
-.hero .nav-links a{color:var(--cream)}
-.hero .nav>.button{background:var(--cream);color:var(--graphite)}
-.hero .nav>.button:hover{background:var(--white)}
-.hero-main{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;min-height:calc(100svh - 88px);padding-top:16px}
-.hero-copy{position:relative;z-index:3;width:min(760px,calc(100% - 150px));padding:28px 54px 24px;background:#2d201a;color:var(--cream);text-align:center}
-.hero-copy .eyebrow{margin:0;color:var(--sand)}
-.hero h1{font-size:clamp(62px,6.2vw,84px);line-height:.86;margin:12px 0 18px}
-.hero .lead{max-width:620px;margin:0 auto 20px;font-size:16px;line-height:1.5}
-.hero-copy>.button{min-height:52px;background:var(--cream);color:var(--graphite)}
-.hero-copy>.button:hover{background:var(--white)}
-.hero-copy .micro{max-width:600px;margin:13px auto 0;color:rgba(255,241,207,.72)}
-.hero-facts{display:flex;align-items:center;justify-content:center;gap:34px;margin-top:10px;color:var(--sand);font-size:12px}
-.hero-facts strong{font:300 23px/1 "Cormorant Garamond",serif;color:var(--cream)}
-.hero-facts .script-note{position:static;margin:0;color:var(--cream);font:20px/1.1 "Bad Script",cursive;transform:none}
-.hero-art{position:relative;z-index:2;width:min(520px,52vw);height:clamp(440px,52svh,610px);margin-top:0}
-.hero-portrait{width:100%;height:100%;object-fit:contain;object-position:top center}
-@media(max-width:1050px){.hero-main{min-height:calc(100svh - 88px);padding-top:14px}.hero-copy{width:min(760px,82vw);padding:28px 44px 24px}.hero-art{width:min(500px,58vw);height:clamp(460px,54svh,590px);transform:none}}
-@media(max-width:760px){.hero{min-height:100svh}.hero .nav-links{color:var(--graphite)}.hero .nav-links a{color:var(--graphite)}.hero .menu-button{border-color:var(--cream)}.hero .menu-button span{background:var(--cream)}.hero-main{display:flex;min-height:calc(100svh - 72px);padding-top:12px}.hero-copy{width:100%;padding:24px 20px 22px}.hero h1{font-size:56px;margin:10px 0 16px}.hero .lead{font-size:15px}.hero-copy>.button{width:100%;padding-inline:18px}.hero-copy .micro{font-size:12px}.hero-facts{gap:18px;flex-wrap:wrap}.hero-art{width:100%;height:440px;margin-top:0;transform:none}.hero-portrait{object-position:top center}}
+/* Editorial hero using the existing Yulia palette. */
+.hero{position:relative;min-height:900px;background:var(--cream);color:var(--graphite);overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13px;background:var(--olive)}
+.hero .nav{position:relative;z-index:10;color:var(--graphite)}
+.hero .nav-links a{color:var(--graphite)}
+.hero .nav>.button{background:var(--olive);color:var(--cream)}
+.hero .nav>.button:hover{background:#393c2a}
+.hero-main{position:relative;display:block;min-height:812px;padding-top:0}
+.hero-copy{position:absolute;inset:66px 0 auto;z-index:1;width:100%;padding:0;color:var(--graphite);text-align:left;pointer-events:none}
+.hero-copy .eyebrow{position:absolute;left:4px;top:-24px;margin:0;color:var(--olive)}
+.hero h1{margin:0;font-size:clamp(112px,10.6vw,154px);line-height:.72;letter-spacing:-.045em}
+.hero h1 span{display:block;white-space:nowrap}
+.hero h1 span:first-child{padding-left:4%}
+.hero h1 span:last-child{margin-top:54px;padding-left:0}
+.hero-art{position:absolute;z-index:2;right:17%;bottom:0;width:min(620px,48vw);height:790px;margin:0;transform:none}
+.hero-portrait{width:100%;height:100%;object-fit:contain;object-position:bottom center;animation:heroPortraitIn .9s cubic-bezier(.22,.61,.36,1) both}
+.hero-copy .eyebrow,.hero h1 span{animation:heroTypeIn .75s ease both}
+.hero h1 span:first-child{animation-delay:.08s}.hero h1 span:last-child{animation-delay:.16s}
+@keyframes heroPortraitIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes heroTypeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:1050px){.hero{min-height:860px}.hero-main{min-height:772px}.hero-copy{inset:64px 0 auto}.hero h1{font-size:clamp(92px,12.6vw,128px)}.hero h1 span:last-child{margin-top:42px}.hero-art{right:2%;width:min(560px,58vw);height:720px;transform:none}}
+@media(max-width:760px){.hero{min-height:880px}.hero .nav{gap:10px}.hero .nav-links{color:var(--graphite)}.hero .nav-links a{color:var(--graphite)}.hero .nav>.button{display:inline-flex;min-height:42px;margin-left:auto;padding:10px 16px}.hero .menu-button{border-color:var(--olive)}.hero .menu-button span{background:var(--olive)}.hero-main{display:block;min-height:808px;padding-top:0}.hero-copy{position:relative;inset:auto;z-index:3;padding-top:38px}.hero-copy .eyebrow{position:static;margin:0 0 14px}.hero h1{font-size:clamp(61px,18vw,76px);line-height:.78;letter-spacing:-.04em}.hero h1 span:first-child{padding-left:0}.hero h1 span:last-child{margin-top:20px;padding-left:0}.hero-art{left:0;right:auto;bottom:0;width:100%;height:600px;transform:none}.hero-portrait{object-position:bottom center}}
+@media(prefers-reduced-motion:reduce){.hero-portrait,.hero-copy .eyebrow,.hero h1 span{animation:none}}
