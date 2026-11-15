@@ -6,12 +6,23 @@ const navLinks = document.querySelector('.nav-links');
 menuButton?.addEventListener('click', () => {
   const open = navLinks.classList.toggle('open');
   menuButton.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('menu-open', open);
 });
 
 navLinks?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
   navLinks.classList.remove('open');
   menuButton?.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
 }));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && navLinks?.classList.contains('open')) {
+    navLinks.classList.remove('open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    menuButton?.focus();
+  }
+});
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
