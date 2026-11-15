@@ -65,4 +65,136 @@ applicationForm?.addEventListener('submit', (event) => {
   applicationForm.querySelector('.form-success').hidden = false;
 });
 
+const educationDocuments = [
+  { qualification: 0, kind: 'Диплом', title: 'Диплом по психологии', meta: 'НОУ ВПО «Институт профессиональных инноваций» · 2010', src: 'assets/documents/diploma-psychology-2010.jpg', alt: 'Диплом по психологии, 2010 год' },
+  { qualification: 0, kind: 'Приложение', title: 'Приложение к диплому по психологии', meta: 'НОУ ВПО «Институт профессиональных инноваций» · 2010', src: 'assets/documents/diploma-psychology-2010-appendix.jpg', alt: 'Приложение к диплому по психологии, 2010 год' },
+  { qualification: 1, kind: 'Диплом', title: 'Диплом по клинической психологии', meta: 'Российский государственный социальный университет · 2017', src: 'assets/documents/diploma-clinical-psychology-2017.jpg', alt: 'Диплом по клинической психологии, 2017 год' },
+  { qualification: 1, kind: 'Приложение', title: 'Приложение к диплому по клинической психологии', meta: 'Российский государственный социальный университет · 2017', src: 'assets/documents/diploma-clinical-psychology-2017-appendix.jpg', alt: 'Приложение к диплому по клинической психологии, 2017 год' },
+  { qualification: 2, kind: 'Сертификат', title: 'НЛП Коуч Практик', meta: 'A&B Coach · 120 часов · 26 июля 2020', src: 'assets/documents/certificate-nlp-coach-2020.jpg', alt: 'Сертификат НЛП Коуч Практик, 2020 год' },
+  { qualification: 3, kind: 'Сертификат', title: 'Timeline Transformation Seminar for Professionals', meta: 'Makani Academy · трёхдневная программа', src: 'assets/documents/certificate-timeline-transformation.jpg', alt: 'Сертификат Timeline Transformation Seminar for Professionals' },
+];
+
+const educationSection = document.querySelector('#education');
+const documentImage = document.querySelector('#document-image');
+const documentTitle = document.querySelector('#document-title');
+const documentKind = document.querySelector('#document-kind');
+const documentMeta = document.querySelector('#document-meta');
+const documentPosition = document.querySelector('#document-position');
+const documentPreview = document.querySelector('#document-preview');
+const documentModal = document.querySelector('#document-modal');
+const documentModalImage = document.querySelector('#document-modal-image');
+const documentModalTitle = document.querySelector('#document-modal-title');
+const documentModalPosition = document.querySelector('#document-modal-position');
+const documentPanArea = document.querySelector('#document-pan-area');
+const zoomReset = document.querySelector('#document-zoom-reset');
+let currentDocument = 0;
+let documentZoom = 1;
+let documentFitWidth = 0;
+
+function updateDocument(index, resetModalZoom = true) {
+  currentDocument = (index + educationDocuments.length) % educationDocuments.length;
+  const documentData = educationDocuments[currentDocument];
+  documentImage.src = documentData.src;
+  documentImage.alt = documentData.alt;
+  documentTitle.textContent = documentData.title;
+  documentKind.textContent = documentData.kind;
+  documentMeta.textContent = documentData.meta;
+  documentPosition.textContent = `${currentDocument + 1} из ${educationDocuments.length}`;
+  documentPreview.setAttribute('aria-label', `Открыть увеличенный документ: ${documentData.title}`);
+
+  educationSection?.querySelectorAll('.education-option[data-qualification]').forEach((option) => {
+    option.classList.toggle('active', Number(option.dataset.qualification) === documentData.qualification);
+  });
+  educationSection?.querySelectorAll('[data-document]').forEach((button) => {
+    const isActive = Number(button.dataset.document) === currentDocument;
+    button.classList.toggle('active', isActive);
+    if (button.closest('.document-switches')) button.setAttribute('aria-pressed', String(isActive));
+  });
+
+  if (documentModal?.open) {
+    documentModalImage.src = documentData.src;
+    documentModalImage.alt = documentData.alt;
+    documentModalTitle.textContent = documentData.title;
+    documentModalPosition.textContent = `${currentDocument + 1} из ${educationDocuments.length}`;
+    if (resetModalZoom) documentModalImage.addEventListener('load', fitModalDocument, { once: true });
+  }
+
+  [currentDocument - 1, currentDocument + 1].forEach((neighbor) => {
+    const preload = new Image();
+    preload.src = educationDocuments[(neighbor + educationDocuments.length) % educationDocuments.length].src;
+  });
+}
+
+educationSection?.querySelectorAll('[data-document]').forEach((button) => {
+  button.addEventListener('click', () => updateDocument(Number(button.dataset.document)));
+});
+document.querySelector('#viewer-prev')?.addEventListener('click', () => updateDocument(currentDocument - 1));
+document.querySelector('#viewer-next')?.addEventListener('click', () => updateDocument(currentDocument + 1));
+
+function setDocumentZoom(zoom) {
+  documentZoom = Math.min(3, Math.max(1, zoom));
+  documentModalImage.style.width = `${documentFitWidth * documentZoom}px`;
+  zoomReset.textContent = `${Math.round(documentZoom * 100)}%`;
+}
+
+function fitModalDocument() {
+  const availableWidth = Math.max(200, documentPanArea.clientWidth - 40);
+  const availableHeight = Math.max(200, documentPanArea.clientHeight - 40);
+  const naturalWidth = documentModalImage.naturalWidth || 1200;
+  const naturalHeight = documentModalImage.naturalHeight || 850;
+  documentFitWidth = naturalWidth * Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight, 1);
+  setDocumentZoom(1);
+  documentPanArea.scrollTo(0, 0);
+}
+
+function openDocumentModal() {
+  const documentData = educationDocuments[currentDocument];
+  documentModalImage.src = documentData.src;
+  documentModalImage.alt = documentData.alt;
+  documentModalTitle.textContent = documentData.title;
+  documentModalPosition.textContent = `${currentDocument + 1} из ${educationDocuments.length}`;
+  documentModal.showModal();
+  requestAnimationFrame(fitModalDocument);
+}
+
+documentPreview?.addEventListener('click', openDocumentModal);
+document.querySelector('#viewer-expand')?.addEventListener('click', openDocumentModal);
+document.querySelector('.document-modal-close')?.addEventListener('click', () => documentModal.close());
+document.querySelector('#document-zoom-in')?.addEventListener('click', () => setDocumentZoom(documentZoom + 0.25));
+document.querySelector('#document-zoom-out')?.addEventListener('click', () => setDocumentZoom(documentZoom - 0.25));
+zoomReset?.addEventListener('click', fitModalDocument);
+document.querySelector('#document-modal-prev')?.addEventListener('click', () => updateDocument(currentDocument - 1));
+document.querySelector('#document-modal-next')?.addEventListener('click', () => updateDocument(currentDocument + 1));
+
+let dragStart = null;
+documentPanArea?.addEventListener('pointerdown', (event) => {
+  if (documentZoom === 1) return;
+  dragStart = { x: event.clientX, y: event.clientY, left: documentPanArea.scrollLeft, top: documentPanArea.scrollTop };
+  documentPanArea.setPointerCapture(event.pointerId);
+  documentPanArea.classList.add('dragging');
+});
+documentPanArea?.addEventListener('pointermove', (event) => {
+  if (!dragStart) return;
+  documentPanArea.scrollLeft = dragStart.left - (event.clientX - dragStart.x);
+  documentPanArea.scrollTop = dragStart.top - (event.clientY - dragStart.y);
+});
+documentPanArea?.addEventListener('pointerup', () => {
+  dragStart = null;
+  documentPanArea.classList.remove('dragging');
+});
+documentModal?.addEventListener('close', () => {
+  dragStart = null;
+  documentPanArea.classList.remove('dragging');
+});
+document.addEventListener('keydown', (event) => {
+  if (!documentModal?.open) return;
+  if (event.key === 'ArrowLeft') updateDocument(currentDocument - 1);
+  if (event.key === 'ArrowRight') updateDocument(currentDocument + 1);
+  if (event.key === '+' || event.key === '=') setDocumentZoom(documentZoom + 0.25);
+  if (event.key === '-') setDocumentZoom(documentZoom - 0.25);
+  if (event.key === '0') fitModalDocument();
+});
+
+updateDocument(0);
+
 document.querySelector('#year').textContent = new Date().getFullYear();
