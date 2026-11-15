@@ -51,3 +51,19 @@ html.js .scroll-card.visible{opacity:1;transform:none}
 .form-wide{grid-column:1/-1}.form-consent{flex-direction:row!important;align-items:flex-start;margin:20px 0}.form-consent input{width:auto;margin-top:3px}.form-note{font-size:12px;color:var(--taupe);margin:18px 0 0}.form-success{padding:14px 16px;border-radius:14px;background:rgba(75,78,55,.1);font-size:14px}
 @media(max-width:760px){.application-form{padding:30px 22px}.application-form h2{font-size:40px}.form-grid{grid-template-columns:1fr}.form-wide{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){html.js .scroll-card{opacity:1;transform:none;transition:none}}
+
+/* Scanned education documents. */
+.documents-block{margin-top:84px;border-top:1px solid var(--taupe);padding-top:48px}
+.documents-heading{display:grid;grid-template-columns:.75fr 1fr;column-gap:50px;align-items:end;margin-bottom:32px}
+.documents-heading .eyebrow{grid-column:1/-1;margin:0 0 10px}
+.documents-heading h3{font:300 44px/1 "Cormorant Garamond",serif;margin:0}
+.documents-heading>p:last-child{margin:0;max-width:520px;color:var(--olive)}
+.documents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.document-card{display:flex;flex-direction:column;min-width:0;border:1px solid rgba(75,78,55,.32);border-radius:20px;overflow:hidden;background:rgba(255,253,248,.55);transition:transform .25s ease,box-shadow .25s ease}
+.document-card:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(23,23,19,.1)}
+.document-card>img{width:100%;height:268px;object-fit:contain;background:#e8e2d8;padding:12px}
+.document-card>span{display:flex;flex-direction:column;gap:4px;padding:20px 22px 22px}
+.document-card strong{font:300 27px/1.05 "Cormorant Garamond",serif}
+.document-card small{font-size:12px;color:var(--taupe)}
+@media(max-width:1050px){.documents-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.documents-block{margin-top:56px;padding-top:36px}.documents-heading{grid-template-columns:1fr;gap:14px}.documents-heading .eyebrow{grid-column:auto}.documents-heading h3{font-size:38px}.documents-grid{grid-template-columns:1fr;gap:18px}.document-card>img{height:250px}}
