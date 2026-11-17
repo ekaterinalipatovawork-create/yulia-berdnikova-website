@@ -137,7 +137,15 @@ function updateDocument(index, resetModalZoom = true) {
 }
 
 educationSection?.querySelectorAll('[data-document]').forEach((button) => {
-  button.addEventListener('click', () => updateDocument(Number(button.dataset.document)));
+  button.addEventListener('click', () => {
+    updateDocument(Number(button.dataset.document));
+    if (window.matchMedia('(max-width: 850px)').matches) {
+      documentPreview.closest('.document-viewer').scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    }
+  });
 });
 document.querySelector('#viewer-prev')?.addEventListener('click', () => updateDocument(currentDocument - 1));
 document.querySelector('#viewer-next')?.addEventListener('click', () => updateDocument(currentDocument + 1));

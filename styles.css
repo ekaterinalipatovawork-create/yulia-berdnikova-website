@@ -214,3 +214,64 @@ html.js .scroll-card.visible{opacity:1;transform:none}
   .service-card-wide h3{font-size:clamp(34px,10vw,40px);hyphens:none;overflow-wrap:normal}
   .service-visual{display:none}
 }
+
+/* Education section: site palette, original documents and controls. */
+#education .education-interactive {
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  row-gap: 36px;
+}
+.education-heading {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 32px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--sand);
+}
+.education-heading .eyebrow { color: var(--olive); margin: 0 0 16px; }
+#education .education-heading h2 { margin: 0; font-size: clamp(44px, 5.4vw, 76px); }
+.education-heading .education-intro { max-width: 57ch; margin: 20px 0 0; }
+.education-credentials { border-left: 1px solid var(--sand); padding-left: 24px; }
+.education-credentials .education-experience { margin: 0; font: 500 14px/1.35 Manrope, Arial, sans-serif; }
+.education-credentials strong { display: block; margin-bottom: 5px; font: 400 55px/.95 "Cormorant Garamond", Georgia, serif; }
+.education-credentials .education-experience-note { margin: 9px 0 0; color: var(--olive); }
+#education .education-options { display: grid; gap: 10px; border: 0; }
+#education .education-option {
+  background: transparent; border: 1px solid var(--sand);
+  border-radius: 16px; padding: 16px 18px; transition: background .2s;
+}
+#education .education-option.active { background: var(--white); border-color: var(--olive); }
+#education .qualification-select .eyebrow { font-size: 11px; color: var(--olive); overflow-wrap: anywhere; }
+#education .qualification-select strong { font-weight: 400; overflow-wrap: anywhere; }
+#education .document-switches { margin-top: 11px; }
+#education .document-viewer {
+  position: relative; top: auto; min-width: 0;
+  background: var(--white); border: 1px solid var(--sand);
+  border-radius: var(--radius); padding: clamp(16px, 2.2vw, 30px);
+  scroll-margin-top: 18px;
+}
+#education .document-viewer-head { min-height: 0; margin-bottom: 20px; }
+#education .document-viewer-head .eyebrow { color: var(--olive); }
+#education .document-viewer-head h3 { font-weight: 400; overflow-wrap: anywhere; }
+#education .document-preview {
+  height: auto; aspect-ratio: 4 / 3; min-width: 0; min-height: 0;
+  padding: clamp(9px, 1.6vw, 20px);
+  border-radius: 15px; background: color-mix(in srgb, var(--sand) 35%, var(--white));
+}
+#education .document-preview img { min-height: 0; min-width: 0; }
+#education .viewer-controls { gap: 8px; margin-top: 14px; }
+#education .viewer-controls span { color: var(--olive); white-space: nowrap; }
+@media (max-width: 850px) {
+  #education .education-interactive { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .education-heading { grid-template-columns: 1fr; gap: 20px; padding-bottom: 24px; }
+  .education-credentials strong { font-size: 44px; }
+  #education .document-viewer-head { display: flex; gap: 12px; }
+  #education .viewer-expand { margin-top: 0; }
+}
+@media (max-width: 420px) {
+  #education .education-heading h2 { font-size: clamp(35px, 10vw, 44px); }
+  #education .document-viewer-head { flex-wrap: wrap; }
+  #education .viewer-controls button { padding-inline: 8px; }
+}
