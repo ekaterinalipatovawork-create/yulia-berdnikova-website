@@ -6,3 +6,6 @@ mobile-full.png
 qa-*.png
 qa/
 tmp/
+
+# Original hero photos stay local (not published)
+hero-candidates/

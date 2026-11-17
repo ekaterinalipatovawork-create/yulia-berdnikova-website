@@ -1,0 +1,17 @@
+/* Preview pages show only the first screen. Booking is disabled here on purpose. */
+body{min-height:0}
+.is-demo{cursor:not-allowed}
+.nav-links a,.brand-mobile{cursor:default}
+.hero .nav>.button.is-demo:hover{transform:none;background:var(--olive)}
+.menu-button[disabled]{cursor:not-allowed}
+.hero-portrait{display:block}
+
+/* Below the hero the real site continues with a dark section; mirror that instead of an empty cream strip. */
+html,body{background:var(--graphite)}
+
+/* Compact phones (≤360px): lift the portrait so the face is inside the first screen. Same for all variants. */
+@media(max-width:360px){
+  .hero{min-height:0}
+  .hero-main{min-height:648px}
+  .hero-art{height:420px}
+}

@@ -1,0 +1,3 @@
+/* Variant 01: photo-specific framing only (same composition as the approved hero). */
+/* Seated, wide figure: on tablets move it right so the name «Бердникова» stays clear of the dress. */
+@media(min-width:761px) and (max-width:1050px){.hero-art{right:-44px}}
