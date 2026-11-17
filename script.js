@@ -59,21 +59,77 @@ lightbox?.addEventListener('click', (event) => {
   if (event.target === lightbox) lightbox.close();
 });
 
-const applicationDialog = document.querySelector('#application-dialog');
-const applicationForm = document.querySelector('#application-form');
-document.querySelectorAll('[data-application]').forEach((link) => {
+// Online booking: YCLIENTS opens in a side panel; every link keeps a real href as a fallback.
+const bookingDialog = document.querySelector('#booking-dialog');
+const bookingFrame = bookingDialog?.querySelector('[data-booking-frame]');
+const bookingStatus = bookingDialog?.querySelector('[data-booking-status]');
+const bookingClose = bookingDialog?.querySelector('[data-booking-close]');
+const bookingSlowDelay = 12000;
+let bookingOpener = null;
+let bookingSlowTimer = null;
+
+function closeMobileMenu() {
+  if (!navLinks?.classList.contains('open')) return;
+  navLinks.classList.remove('open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
+}
+
+function loadBookingFrame(url) {
+  if (!bookingFrame || bookingFrame.dataset.loadedUrl === url) return;
+  bookingFrame.dataset.loadedUrl = url;
+  bookingDialog.classList.remove('is-loaded', 'is-slow');
+  bookingStatus.textContent = 'Загружаем расписание…';
+  clearTimeout(bookingSlowTimer);
+  // A cross-origin frame can't report its own errors reliably, so a slow load
+  // only adds a hint; the "open in a new tab" link is always visible anyway.
+  bookingSlowTimer = setTimeout(() => {
+    if (bookingDialog.classList.contains('is-loaded')) return;
+    bookingDialog.classList.add('is-slow');
+    bookingStatus.textContent = 'Расписание загружается дольше обычного. Вы можете открыть запись в новой вкладке — ссылка внизу панели.';
+  }, bookingSlowDelay);
+  bookingFrame.src = url;
+}
+
+bookingFrame?.addEventListener('load', () => {
+  if (!bookingFrame.dataset.loadedUrl) return;
+  clearTimeout(bookingSlowTimer);
+  bookingDialog.classList.remove('is-slow');
+  bookingDialog.classList.add('is-loaded');
+  bookingStatus.textContent = '';
+});
+
+function openBooking(opener) {
+  if (!bookingDialog || typeof bookingDialog.showModal !== 'function') return false;
+  bookingOpener = opener;
+  closeMobileMenu();
+  loadBookingFrame(opener.href);
+  document.documentElement.classList.add('booking-open');
+  bookingDialog.showModal();
+  bookingClose?.focus();
+  return true;
+}
+
+document.querySelectorAll('[data-booking-open]').forEach((link) => {
   link.addEventListener('click', (event) => {
-    event.preventDefault();
-    applicationDialog.showModal();
+    // Let modified clicks (new tab / window) behave like a normal link.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (openBooking(link)) event.preventDefault();
   });
 });
-applicationDialog?.querySelector('.application-close').addEventListener('click', () => applicationDialog.close());
-applicationDialog?.addEventListener('click', (event) => {
-  if (event.target === applicationDialog) applicationDialog.close();
+
+bookingClose?.addEventListener('click', () => bookingDialog.close());
+bookingDialog?.addEventListener('click', (event) => {
+  // Clicks on the ::backdrop are reported on the dialog element itself.
+  if (event.target !== bookingDialog) return;
+  const rect = bookingDialog.getBoundingClientRect();
+  const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+  if (!inside) bookingDialog.close();
 });
-applicationForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  applicationForm.querySelector('.form-success').hidden = false;
+bookingDialog?.addEventListener('close', () => {
+  document.documentElement.classList.remove('booking-open');
+  bookingOpener?.focus({ preventScroll: true });
+  bookingOpener = null;
 });
 
 const educationDocuments = [
